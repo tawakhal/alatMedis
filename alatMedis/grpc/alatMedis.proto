@@ -1,0 +1,76 @@
+syntax="proto3";
+
+// ini fungsi bahwa gk ada respon contohnya di service
+import "google/protobuf/empty.proto";
+
+package grpc;
+
+message AddAlatMedisReq{
+    string kodeAlatMedis=1;
+    string namaAlatMedis=2;
+    int64 biaya=3;
+    string deskripsi=4;
+    string createdBy=5;
+    string createdOn=6;
+    string status=7;
+}
+
+// request adalah yang datang lalu ditampung
+message ReadAlatMedisByKodeReq{
+    string kode=1;
+}
+
+// request adalah sesuatu yang return yang akan dikembalikan biasanya ada request dan respon
+message ReadAlatMedisByKodeResp{
+    string kodeAlatMedis=1;
+    string namaAlatMedis=2;
+    int64 biaya=3;
+    string deskripsi=4;
+    string createdBy=5;
+    string createdOn=6;
+    string updateBy=7;
+    string updateOn=8;
+    string status=9;
+}
+
+// request adalah yang datang lalu ditampung
+message ReadAlatMedisByStatusReq{
+    string status=1;
+}
+
+// request adalah sesuatu yang return yang akan dikembalikan biasanya ada request dan respon
+message ReadAlatMedisByStatusResp{
+    string kodeAlatMedis=1;
+    string namaAlatMedis=2;
+    int64 biaya=3;
+    string deskripsi=4;
+    string createdBy=5;
+    string createdOn=6;
+    string updateBy=7;
+    string updateOn=8;
+    string status=9;
+}
+
+message ReadAlatMedisResp{
+    // repeated itu sama kayak menulis ulang
+    repeated ReadAlatMedisByKodeResp allkode=1;
+}
+
+message UpdateAlatMedisReq{
+    string kodeAlatMedis=1;
+    string namaAlatMedis=2;
+    int64 biaya=3;
+    string deskripsi=4;
+    string updateBy=5;
+    string updateOn=6;
+    string status=7;
+}
+
+// ini menggunakan data yang returnnya itu atau responnya gk ada
+service AlatMedisService{
+    rpc AddAlatMedis(AddAlatMedisReq) returns (google.protobuf.Empty) {};
+    rpc ReadAlatMedisByKode(ReadAlatMedisByKodeReq) returns (ReadAlatMedisByKodeResp) {};
+    rpc ReadAlatMedisByStatus(ReadAlatMedisByStatusReq) returns (ReadAlatMedisByStatusResp) {};
+    rpc ReadAlatMedis(google.protobuf.Empty) returns (ReadAlatMedisResp){};
+    rpc UpdateAlatMedis(UpdateAlatMedisReq) returns (google.protobuf.Empty){};
+    }
